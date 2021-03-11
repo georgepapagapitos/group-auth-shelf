@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 
 function ShelfPage() {
   const [items, setItems] = useState([]);
+  const [newDescription, setNewDescription] = useState('');
+  const [newImage, setNewImage] = useState('');
 
   const user = useSelector((store) => store.user);
 
@@ -25,7 +27,7 @@ function ShelfPage() {
   function handleSubmit(evt) {
     evt.preventDefault();
 
-    console.log('in submit');
+    console.log('in submit', newDescription, newImage);
   }
 
   return (
@@ -33,9 +35,19 @@ function ShelfPage() {
       <h2>Shelf</h2>
 
       <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Description" />
+        <input
+          type="text"
+          placeholder="Description"
+          value={newDescription}
+          onChange={(event) => setNewDescription(event.target.value)}
+        />
 
-        <input type="text" placeholder="Image URL" />
+        <input
+          type="text"
+          placeholder="Image URL"
+          value={newImage}
+          onChange={(event) => setNewImage(event.target.value)}
+        />
 
         <button>Submit</button>
       </form>
