@@ -22,9 +22,24 @@ function ShelfPage() {
       });
   };
 
+  function handleSubmit(evt) {
+    evt.preventDefault();
+
+    console.log('in submit');
+  }
+
   return (
     <div className="container">
       <h2>Shelf</h2>
+
+      <form onSubmit={handleSubmit}>
+        <input type="text" placeholder="Description" />
+
+        <input type="text" placeholder="Image URL" />
+
+        <button>Submit</button>
+      </form>
+
       <div className="item-container">
         {items.map((item) => {
           return (
