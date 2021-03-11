@@ -15,3 +15,9 @@ CREATE TABLE "item" (
     "image_url" VARCHAR (2083),
     "user_id" INT REFERENCES "user"
 );
+
+INSERT INTO "item" ("description", "image_url", "user_id")
+VALUES 
+('egg', 'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=700%2C636', '2'),
+('gnocchi', 'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=700%2C636', '2'), 
+('danimals', 'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=700%2C636', '4');
