@@ -78,7 +78,29 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
  * Update an item if it's something the logged in user added
  */
 router.put('/:id', rejectUnauthenticated, (req, res) => {
-  // endpoint functionality
+  // Incoming req info
+  const userId = req.user.id;
+  const itemToUpdate = req.body;
+
+  const sqlText = `UPDATE "item" 
+  SET "description" = $3, "image_url" = $4 
+  WHERE "id" = $1 AND "user_id" = $2;`;
+  const sqlParams = [
+    itemToUpdate.id,
+    userId,
+    itemToUpdate.description,
+    itemToUpdate.image_url,
+  ];
+
+  pool
+    .query(sqlText, sqlParams)
+    .then((dbRes) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log('Error in PUT', err);
+      res.sendStatus(500);
+    });
 });
 
 /**

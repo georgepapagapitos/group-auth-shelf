@@ -19,6 +19,7 @@ import ShelfPage from '../ShelfPage/ShelfPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import EditPage from '../EditPage/EditPage';
 
 import './App.css';
 
@@ -64,6 +65,10 @@ function App() {
             path="/shelf"
           >
             <ShelfPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/edit">
+            <EditPage />
           </ProtectedRoute>
 
           {/* When a value is supplied for the authRedirect prop the user will
