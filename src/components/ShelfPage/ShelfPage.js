@@ -27,7 +27,22 @@ function ShelfPage() {
   function handleSubmit(evt) {
     evt.preventDefault();
 
-    console.log('in submit', newDescription, newImage);
+    const newItem = {
+      description: newDescription,
+      image_url: newImage,
+    };
+
+    axios
+      .post('/api/shelf/', newItem)
+      .then((res) => {
+        getItems();
+
+        setNewDescription('');
+        setNewImage('');
+      })
+      .catch((err) => {
+        console.log('Error in post', err);
+      });
   }
 
   return (

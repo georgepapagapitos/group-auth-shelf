@@ -1,26 +1,29 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
-const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+const {
+  rejectUnauthenticated,
+} = require('../modules/authentication-middleware');
 
 /**
  * Get all of the items on the shelf
  */
 router.get('/', rejectUnauthenticated, (req, res) => {
   //res.sendStatus(200); // For testing only, can be removed
-  console.log('user', req.user.id)
+  console.log('user', req.user.id);
 
-  const sqlText =`SELECT * FROM "item"
-  WHERE "user_id" = $1;`
-  
-  pool.query(sqlText, [ req.user.id ])
-  .then((result) => {
-    res.send(result.rows);
-  })
-  .catch((error) => {
-    console.log(error, "ERROR GET ALL ITEMS")
-    res.sendStatus(500)
-  })
+  const sqlText = `SELECT * FROM "item"
+  WHERE "user_id" = $1;`;
+
+  pool
+    .query(sqlText, [req.user.id])
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.log(error, 'ERROR GET ALL ITEMS');
+      res.sendStatus(500);
+    });
 });
 
 /**
@@ -28,6 +31,22 @@ router.get('/', rejectUnauthenticated, (req, res) => {
  */
 router.post('/', rejectUnauthenticated, (req, res) => {
   // endpoint functionality
+  console.log(req.body);
+  console.log(req.user.id);
+
+  const sqlText = `INSERT INTO "item" ("description", "image_url", "user_id")
+  VALUEs ($1, $2, $3)`;
+  const sqlParams = [req.body.description, req.body.image_url, req.user.id];
+
+  pool
+    .query(sqlText, sqlParams)
+    .then((results) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log('error in POST', err);
+      res.sendStatus(500);
+    });
 });
 
 /**
