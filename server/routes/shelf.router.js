@@ -9,7 +9,6 @@ const {
  * Get all of the items on the shelf
  */
 router.get('/', rejectUnauthenticated, (req, res) => {
-  //res.sendStatus(200); // For testing only, can be removed
   console.log('user', req.user.id);
 
   const sqlText = `SELECT * FROM "item"
@@ -30,17 +29,16 @@ router.get('/', rejectUnauthenticated, (req, res) => {
  * Add an item for the logged in user to the shelf
  */
 router.post('/', rejectUnauthenticated, (req, res) => {
-  // endpoint functionality
   console.log(req.body);
   console.log(req.user.id);
 
   const sqlText = `INSERT INTO "item" ("description", "image_url", "user_id")
-  VALUEs ($1, $2, $3)`;
+  VALUES ($1, $2, $3)`;
   const sqlParams = [req.body.description, req.body.image_url, req.user.id];
 
   pool
     .query(sqlText, sqlParams)
-    .then((results) => {
+    .then((dbRes) => {
       res.sendStatus(200);
     })
     .catch((err) => {
@@ -53,7 +51,27 @@ router.post('/', rejectUnauthenticated, (req, res) => {
  * Delete an item if it's something the logged in user added
  */
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
-  // endpoint functionality
+  console.log(req.params.id, 'req.params.id');
+  console.log(req.user, 'req.user');
+
+  const userId = req.user.id;
+  const itemId = req.params.id;
+
+  const sqlText = ` DELETE FROM "item" 
+  WHERE "user_id" = $1 
+  AND "id" = $2`;
+
+  const sqlParams = [userId, itemId];
+
+  pool
+    .query(sqlText, sqlParams)
+    .then((dbRes) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log('Error in db delete');
+      res.sendStatus(500);
+    });
 });
 
 /**

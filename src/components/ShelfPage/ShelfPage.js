@@ -45,6 +45,19 @@ function ShelfPage() {
       });
   }
 
+  const deleteButton = (itemId) => {
+    console.log('item id', itemId);
+
+    axios
+      .delete(`/api/shelf/${itemId}`)
+      .then((res) => {
+        getItems();
+      })
+      .catch((err) => {
+        console.log('Error in delete', err);
+      });
+  };
+
   return (
     <div className="container">
       <h2>Shelf</h2>
@@ -73,6 +86,9 @@ function ShelfPage() {
             <div key={item.id}>
               <img src={item.image_url} alt={item.description} />
               <p>{item.description}</p>
+              <p>
+                <button onClick={() => deleteButton(item.id)}>Delete</button>
+              </p>
             </div>
           );
         })}
