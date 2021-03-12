@@ -5,30 +5,32 @@ Our client, Prime Digital Academy: Room 2, has asked for an app to simulate the 
 ## Use the Download ZIP Option (Don't Fork & Don't Clone)
 
 **Step 1 - Download ZIP of Project:**
+
 - click on the **Code** button
-    - select the **Download ZIP** option from the menu
+  - select the **Download ZIP** option from the menu
 - file download should appear at the bottom of your web browser
-    - click on the downloaded file icon
+  - click on the downloaded file icon
 - a finder window should open with the assignment folder unzipped in the Downloads directory
 - move the folder to where you are keeping your projects
 
 **Step 2 - Initialize as a Repo:**
+
 - open the project in VSCode
 - open up the terminal in VSCode for the project
-    - *in terminal:* run `git init`
-    - *in terminal:* run `git add .`
-    - *in terminal:* run `git commit -m "initial commit"`
+  - _in terminal:_ run `git init`
+  - _in terminal:_ run `git add .`
+  - _in terminal:_ run `git commit -m "initial commit"`
 
 **Step 3 - Attach GitHub Repo:**
+
 - goto GitHub in the browser (make sure you are logged in)
 - click on the `+` icon in the top right of the window
-    - select **New repository** from the menu
+  - select **New repository** from the menu
 - name your repo **secure-submarine**
 - make sure your repo has **Public** selected
 - click the **Create repository** button at the bottom
 - copy the terminal commands listed in the **…or push an existing repository from the command line** section
 - goto your project terminal in VSCode and paste the commands you just copied from GitHub and press **return**
-
 
 ---
 
@@ -59,13 +61,13 @@ An authenticated user should be able to delete items from the shelf if they were
 ### Stretch Goals
 
 - Ability to edit an existing item on the shelf from the info page.
+
 - Have anyone, not just logged in users, be able to see what is on the shelf, but not edit, remove, nor add.
 - Add a new route to display all items for a specific user called "My Shelf". The client-side url should be `/shelf/2` where `/2` should be the id of the logged in user. Only the items associated with the specific logged in user should be displayed on this new page.
 - Use "Filestack" for image upload on the add page.
 - Style the application with Material-UI.
 
 ---
-
 
 ## Prerequisites
 
@@ -78,7 +80,7 @@ Before you get started, make sure you have the following software installed on y
 ## CREATE DATABASE AND TABLE
 
 Create a new database called `auth_shelf` and create a `user` table:
- user-update
+user-update
 
 ```SQL
 CREATE TABLE "user" (

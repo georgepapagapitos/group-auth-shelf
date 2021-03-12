@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 function ShelfPage() {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   const [items, setItems] = useState([]);
   const [newDescription, setNewDescription] = useState('');
   const [newImage, setNewImage] = useState('');
@@ -22,7 +26,7 @@ function ShelfPage() {
       .catch((err) => {
         console.log('Error in GET', err);
       });
-  };
+  }; // end getItems
 
   function handleSubmit(evt) {
     evt.preventDefault();
@@ -43,7 +47,7 @@ function ShelfPage() {
       .catch((err) => {
         console.log('Error in post', err);
       });
-  }
+  } // end handleSubmit
 
   const deleteButton = (itemId) => {
     console.log('item id', itemId);
@@ -56,7 +60,18 @@ function ShelfPage() {
       .catch((err) => {
         console.log('Error in delete', err);
       });
-  };
+  }; // end deleteButton
+
+  const editButton = (item) => {
+    console.log('item to edit', item);
+
+    dispatch({
+      type: 'SET_EDIT_ITEM',
+      payload: item,
+    });
+
+    history.push('/edit');
+  }; // end editButton
 
   return (
     <div className="container">
@@ -88,6 +103,9 @@ function ShelfPage() {
               <p>{item.description}</p>
               <p>
                 <button onClick={() => deleteButton(item.id)}>Delete</button>
+              </p>
+              <p>
+                <button onClick={() => editButton(item)}>Edit</button>
               </p>
             </div>
           );

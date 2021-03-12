@@ -79,6 +79,8 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
  */
 router.put('/:id', rejectUnauthenticated, (req, res) => {
   // endpoint functionality
+  console.log('in edit');
+  res.sendStatus(200);
 });
 
 /**
