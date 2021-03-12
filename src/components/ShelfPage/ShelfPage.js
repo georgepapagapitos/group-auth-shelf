@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 function ShelfPage() {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  // Set up local states
   const [items, setItems] = useState([]);
   const [newDescription, setNewDescription] = useState('');
   const [newImage, setNewImage] = useState('');
-
-  const user = useSelector((store) => store.user);
 
   useEffect(() => {
     getItems();
   }, []);
 
+  // Refreshes list of items on shelf
   const getItems = () => {
     axios
       .get('/api/shelf/')
@@ -50,7 +50,7 @@ function ShelfPage() {
   } // end handleSubmit
 
   const deleteButton = (itemId) => {
-    console.log('item id', itemId);
+    //console.log('item id', itemId);
 
     axios
       .delete(`/api/shelf/${itemId}`)
@@ -63,13 +63,15 @@ function ShelfPage() {
   }; // end deleteButton
 
   const editButton = (item) => {
-    console.log('item to edit', item);
+    //console.log('item to edit', item);
 
+    // stores item clicked in redux store
     dispatch({
       type: 'SET_EDIT_ITEM',
       payload: item,
     });
 
+    // sends user to edit page
     history.push('/edit');
   }; // end editButton
 
